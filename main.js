@@ -14,8 +14,7 @@ new Vue({
     data() {
         return {
             coins: [],
-            initialInvestment: parseFloat(750).toFixed(2),
-            navBarLogoSrc: `${window.location}/images/Cryptocurrency_Logo_2.png`
+            initialInvestment: parseFloat(750).toFixed(2)
         }
     },
     methods: {
