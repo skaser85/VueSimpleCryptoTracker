@@ -1,24 +1,31 @@
 export default {
     props: ["initialInvestment", "totalWorth", "totalPl", "percentPl"],
     template: `
-    <div class="box coin-stats">
-        <div class="title is-3">Coin<br>Stats</div>
-        <div class="coin-stats--item">
-            <p class="title is-5">Initial Investment</p>
-            <p class="subtitle is-6">\${{ initialInvestment }}</p>
+    <nav class="level box">
+        <div class="level-item has-text-centered">
+            <div>
+            <p class="heading">Initial Investment</p>
+            <p class="title">\${{ initialInvestment }}</p>
+            </div>
         </div>
-        <div class="coin-stats--item">
-            <p class="title is-5">Total Worth</p>
-            <p class="subtitle is-6">\${{ totalWorth }}</p>
+        <div class="level-item has-text-centered">
+            <div>
+            <p class="heading">Total Worth</p>
+            <p class="title">\${{ totalWorth }}</p>
+            </div>
         </div>
-        <div class="coin-stats--item">
-            <p class="title is-5">Total P/L</p>
-            <p class="subtitle is-6">\${{ totalPl }}</p>
+        <div class="level-item has-text-centered">
+            <div>
+            <p class="heading">Total P/L</p>
+            <p class="title">\${{ totalPl }}</p>
+            </div>
         </div>
-        <div class="coin-stats--item">
-            <p class="title is-5">P/L %</p>
-            <p class="subtitle is-6">{{ percentPl }}%</p>
+        <div class="level-item has-text-centered">
+            <div>
+            <p class="heading">P/L %</p>
+            <p class="title">{{ percentPl }}%</p>
+            </div>
         </div>
-    </div>
+    </nav>
     `
 }

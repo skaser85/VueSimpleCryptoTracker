@@ -1,3 +1,4 @@
+import NavBar from "./navbar.js";
 import CoinStats from "./coin_stats.js";
 import CoinCards from "./coin_cards.js";
 import CoinCard from "./coin_card.js";
@@ -5,6 +6,7 @@ import CoinCard from "./coin_card.js";
 new Vue({
     el: "#bulma-vue",
     components: {
+        NavBar,
         CoinCard,
         CoinCards,
         CoinStats
