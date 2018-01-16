@@ -1,8 +1,9 @@
 export default {
+    props: ["navBarLogoSrc"],
     template: `
     <nav class="navbar is-light" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <img src="${window.location}/images/Cryptocurrency_Logo_2.png" alt="CryptoCurrency Logo">
+            <img v-bind:src="navBarLogoSrc" alt="CryptoCurrency Logo">
             <button class="button navbar-burger">
             <span></span>
             <span></span>
