@@ -17,6 +17,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Visual Studio Code settings folder
+.vscode
+
 # =========================
 # Operating System Files
 # =========================

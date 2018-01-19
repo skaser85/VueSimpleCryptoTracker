@@ -86,3 +86,25 @@ body {
     font-size: 1em;
     font-weight: 100;
 }
+
+
+@media screen and (max-width: 768px) {
+    .level {
+        width: 95vw;
+        flex-wrap: wrap;
+    }
+
+    .level-item {
+        width: 50%;
+        margin-bottom: .75rem;
+    }
+
+    .coin-cards {
+        width: 95vw;
+        flex-direction: column;
+    }
+
+    .coin-card {
+        width: 95vw;
+    }
+}
