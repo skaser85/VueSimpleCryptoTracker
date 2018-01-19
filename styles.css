@@ -16,11 +16,10 @@ body {
 
 .navbar {
     width: 100vw;
-    padding: 5px;
 }
 
-.navbar-brand {
-    padding-left: 10px;
+.navbar-burger {
+    margin-top: 5px;
 }
 
 .level {
@@ -30,6 +29,10 @@ body {
     justify-content: space-around;
     align-items: center;
     margin-top: 1.5rem;
+}
+
+.level-item {
+    margin-bottom: .75rem;
 }
 
 .coin-stats--item {
@@ -87,20 +90,31 @@ body {
     font-weight: 100;
 }
 
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .level {
         width: 95vw;
+    }
+
+    .coin-cards {
+        width: 95vw;
+    }
+
+    .coin-card {
+        width: 45%;
+    }
+}
+
+
+@media screen and (max-width: 700px) {
+    .level {
         flex-wrap: wrap;
     }
 
     .level-item {
         width: 50%;
-        margin-bottom: .75rem;
     }
 
     .coin-cards {
-        width: 95vw;
         flex-direction: column;
     }
 
