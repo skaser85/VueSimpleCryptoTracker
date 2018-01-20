@@ -22,6 +22,10 @@ body {
     margin-top: 5px;
 }
 
+.data-update-modal--add-coin-btn {
+    float: right;
+}
+
 .level {
     width: 75vw;
     display: flex;

@@ -1,4 +1,10 @@
+import DataUpdate from "./data_update.js";
+
 export default {
+    props: ["coins"],
+    components: {
+        DataUpdate
+    },
     template: `
     <nav class="navbar is-light" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -12,7 +18,7 @@ export default {
         <div @click="toggleActiveClass" :class="{'is-active': isActive}" class="navbar-menu">
             <div class="navbar-end">
                 <p class="control navbar-item">
-                    <a @click="toggleUpdateForm" class="button is-info" href="#">
+                    <a @click="displayUpdateModal=true" class="button is-info" href="#">
                         <span class="icon">
                             <i class="fa fa-btc"></i>
                         </span>
@@ -21,20 +27,20 @@ export default {
                 </p>
             </div>
         </div>
+        <data-update v-show="displayUpdateModal" 
+                     @close="displayUpdateModal=false"
+                     :coins="coins"></data-update>
     </nav>
     `,
     data() {
         return {
-            isActive: false
+            isActive: false,
+            displayUpdateModal: false
         }
     },
     methods: {
         toggleActiveClass() {
             this.isActive = !this.isActive;
-        },
-        toggleUpdateForm() {
-            // needs to pop up a modal with a form in it
-            console.log("this is where the form to update the data goes");
         }
     }
 }
