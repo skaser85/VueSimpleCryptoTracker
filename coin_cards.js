@@ -1,3 +1,4 @@
+import { EventBus } from "./event_bus.js";
 import CoinCard from "./coin_card.js";
 
 export default {
@@ -5,16 +6,12 @@ export default {
         CoinCard
     },
     props: ["coins"],
-    template: `
-    <div class="coin-cards">
-        <coin-card v-for="coin in coins" :key="coin.rank"
-                   :logo-src=coin.logoSrc
-                   :name=coin.name
-                   :rank=coin.rank
-                   :us-price=coin.price_usd
-                   :amt-owned=coin.amt_owned
-                   :total-worth=coin.total_worth
-                   ></coin-card>
-    </div>
-    `
+    template: "#coin-cards",
+    mounted() {
+        EventBus.$on("coinAdded", (payLoad) => {
+            let coin = this.coins.filter(c => {return c.name === payLoad.coin;})[0]
+            coin.amt_owned = payLoad.amtOwned;
+            coin.total_worth = parseFloat(coin.amt_owned * coin.price_usd).toFixed(2);
+        });
+    }
 }

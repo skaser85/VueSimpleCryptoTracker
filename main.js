@@ -1,3 +1,4 @@
+import { EventBus } from "./event_bus.js";
 import NavBar from "./navbar.js";
 import DataUpdate from "./data_update.js";
 import CoinStats from "./coin_stats.js";
@@ -20,7 +21,7 @@ new Vue({
         }
     },
     methods: {
-
+        
     },
     computed: {
         totalWorth() {
@@ -63,5 +64,11 @@ new Vue({
             .catch((error) => {
                 console.log(error);
             });
+
+        // EventBus.$on("coinAdded", (payLoad) => {
+        //     let coin = this.coins.filter(c => {return c.name === payLoad.coin;})[0]
+        //     coin.amt_owned = payLoad.amtOwned;
+        //     coin.total_worth = parseFloat(coin.amt_owned * coin.price_usd).toFixed(2);
+        // });
     }
 })

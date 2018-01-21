@@ -22,10 +22,6 @@ body {
     margin-top: 5px;
 }
 
-.data-update-modal--add-coin-btn {
-    float: right;
-}
-
 .level {
     width: 75vw;
     display: flex;
@@ -94,6 +90,48 @@ body {
     font-weight: 100;
 }
 
+.coins-owned-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.coins-owned-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: .75rem;
+    transition: all .15s ease-in;
+}
+
+.coins-owned-item:hover {
+    background: rgba(0, 255, 0, .3);
+    cursor: pointer;
+    border: 1px solid (0, 255, 0, .3);
+    border-radius: 1rem;
+}
+
+.coins-owned-item:active {
+    background: rgba(96, 214, 96, 0.7);
+    cursor: pointer;
+    border: 1px solid (0, 255, 0, .3);
+    border-radius: 1rem;
+}
+
+.data-update-modal--update-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.coins-owned-item--section {
+    width: 25%;
+}
+
+.subtitle:not(:last-child) {
+    margin-bottom: 0;
+}
+
 @media screen and (max-width: 1024px) {
     .level {
         width: 95vw;
@@ -124,5 +162,28 @@ body {
 
     .coin-card {
         width: 95vw;
+    }
+
+    .modal-card {
+        margin: 0 auto;
+    }
+
+    .coins-owned-item {
+        padding: .75rem 0;
+    }
+
+    .coins-owned-item > figure {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .coins-owned-item > figure > img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .coins-owned-item > p.subtitle.is-6 {
+        font-size: .9rem;
     }
 }

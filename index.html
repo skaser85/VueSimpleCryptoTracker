@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="styles.css">
-    <title>Bulma Vue</title>
+    <title>CryptoTracker</title>
 </head>
 
 <body>
@@ -20,6 +20,189 @@
                     :percent-Pl="percentPl"></coin-stats>
         <coin-cards :coins="coins"></coin-cards>
     </div>
+
+
+    <template id="navbar">
+        <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <img class="navbar-item" :src="mainLogoSrc" alt="CryptoCurrency Logo">
+                <button @click="toggleActiveClass" :class="{'is-active': isActive}" class="button navbar-burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div @click="toggleActiveClass" :class="{'is-active': isActive}" class="navbar-menu">
+                <div class="navbar-end">
+                    <p class="control navbar-item">
+                        <a @click="displayUpdateModal=true" class="button is-info" href="#" onclick="event.preventDefault();">
+                            <span class="icon">
+                                <i class="fa fa-btc"></i>
+                            </span>
+                            <span>Update Data</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <data-update v-show="displayUpdateModal" 
+                         @close="displayUpdateModal=false"
+                         :coins="coins"></data-update>
+        </nav>
+
+        <!-- The logo can be made clickable by adding an anchor tag
+        around the img.
+        <a class="navbar-item" href="https://bulma.io"></a> -->
+    </template>
+
+    <template id="data-update">
+        <div class="modal is-active">
+            <div @click="$emit('close')" class="modal-background"></div>
+            <div class="modal-content">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Update CryptoCoin Data</p>
+                        <button @click="$emit('close')" class="delete" aria-label="close"></button>
+                    </header>
+                    <section class="modal-card-body">
+                        <div class="field">
+                            <label class="label title is-4">Initial Investment</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" placeholder="750.00">
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-dollar"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field data-update-modal--update-btn">
+                            <button @click="updateInitialInvestment" class="button is-info">Update Initial Investment</button>
+                        </div>
+                        <hr v-show="ownsCoins">
+                        <div class="field" v-show="ownsCoins">
+                            <p class="title is-4">Coins Owned</p>
+                            <div class="coins-owned-container">
+                                <div class="coins-owned-item" 
+                                     v-for="coin in coins" 
+                                     :key="coin.id" 
+                                     v-if="coin.amt_owned > 0"
+                                     @click="selectCoin(coin.id)">
+                                    <figure class="image is-32x32 coins-owned-item--section">
+                                        <img :src="coin.logoSrc" alt="Image">
+                                    </figure>
+                                    <p class="subtitle is-6 coins-owned-item--section">{{coin.name}}</p>
+                                    <p class="subtitle is-6 coins-owned-item--section">{{coin.amt_owned}}</p>
+                                    <p class="subtitle is-6 coins-owned-item--section">${{coin.total_worth}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="title is-4">Add Coins</p>
+                        <div class="field">
+                            <label class="label">Coins</label>
+                            <div class="control has-icons-left is-expanded">
+                                <span class="select is-fullwidth">
+                                    <select v-model="selectedCoin" @change="getCoinData">
+                                        <option disabled value="">Select Coin</option>
+                                        <option class="has-icons-left" v-for="coin in coins" :key="coin.rank" :value="coin.name">
+                                            {{ coin.name }}
+                                        </option>
+                                    </select>
+                                </span>
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-globe"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Amount Owned</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" placeholder=".666" v-model="amtOwned">
+                                <span class="icon is-small is-left">
+                                    <i class="fa fa-exchange"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field data-update-modal--update-btn">
+                            <button @click="addCoinData" class="button is-info">Add coin</button>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button is-success">Save changes</button>
+                        <button @click="$emit('close')" class="button">Cancel</button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="coin-stats">
+        <div class="level box">
+            <div class="level-item has-text-centered">
+                <div>
+                <p class="heading">Initial Investment</p>
+                <p class="title">${{ initialInvestment }}</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                <p class="heading">Total Worth</p>
+                <p class="title">${{ totalWorth }}</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                <p class="heading">Total P/L</p>
+                <p class="title">${{ totalPl }}</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                <p class="heading">P/L %</p>
+                <p class="title">{{ percentPl }}%</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="coin-cards">
+        <div class="coin-cards">
+            <coin-card v-for="coin in coins" :key="coin.rank"
+                       :logo-src=coin.logoSrc
+                       :name=coin.name
+                       :rank=coin.rank
+                       :us-price=coin.price_usd
+                       :amt-owned=coin.amt_owned
+                       :total-worth=coin.total_worth
+                       ></coin-card>
+        </div>
+    </template>
+
+    <template id="coin-card">
+        <div class="box coin-card">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64 coin-card--logo">
+                        <img :src="logoSrc" alt="Image">
+                    </figure>
+                </div>
+                <div class="content">
+                    <p class="title is-3">{{ name }}</p>
+                    <p class="subtitle is-6">Rank: {{ rank }}</p>
+                </div>
+            </div>
+            <div class="content coin-card--content-container">
+                <p class="coin-card--content">US Price:
+                    <span>${{ usPrice }}</span>
+                </p>
+                <p class="coin-card--content">Amount Owned:
+                    <span>{{ amtOwned }}</span>
+                </p>
+                <p class="coin-card--content">Total Worth:
+                    <span>${{ totalWorth }}</span>
+                </p>
+            </div>
+        </div>
+    </template>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
     <script src="main.js" type="module"></script>
