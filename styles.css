@@ -55,22 +55,19 @@ body {
 .coin-card {
     width: 30vw;
     margin-bottom: 1.5rem;
-}
-
-.coin-card--logo {
     transition: all .25s ease-out;
 }
 
-.coin-card--logo:hover {
+.coin-card:hover {
     cursor: pointer;
-    border: 5px dashed #00ff00;
-    border-radius: 50%;
+    transform: scale(1.1);
+    box-shadow: 10px 10px 5px #ccc;
 }
 
-.coin-card--logo:active {
+.coin-card:active {
     cursor: pointer;
-    border: 5px dotted #ff0000;
-    border-radius: 50%;
+    transform: scale(1.05);
+    box-shadow: 5px 5px 3px #666;
 }
 
 .coin-card--content-container {

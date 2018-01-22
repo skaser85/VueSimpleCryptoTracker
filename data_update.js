@@ -1,10 +1,9 @@
-import { EventBus } from "./event_bus.js";
-
 export default {
-    props: ["coins"],
+    props: ["coins", "initInvest"],
     template: "#data-update",
     data() {
         return {
+            ii: this.initInvest,
             selectedCoin: "",
             amtOwned: ""
         }
@@ -14,15 +13,14 @@ export default {
             this.amtOwned = this.coin.amt_owned;
         },
         addCoinData() {
-            EventBus.$emit("coinAdded", {coin: this.selectedCoin, amtOwned: this.amtOwned});
+            this.$parent.$emit("coin-added", {coin: this.selectedCoin, amtOwned: this.amtOwned});
         },
         updateInitialInvestment() {
-
+            this.$parent.$emit("init-invest", this.ii);
         },
         selectCoin(coinID) {
             this.selectedCoin = this.coins.filter(c => {return c.id === coinID;})[0].name;
             this.amtOwned = this.coin.amt_owned;
-            console.log(this.selectedCoin);
         }
     },
     computed: {

@@ -1,7 +1,7 @@
 import DataUpdate from "./data_update.js";
 
 export default {
-    props: ["coins"],
+    props: ["coins", "initInvest"],
     components: {
         DataUpdate
     },
@@ -15,6 +15,12 @@ export default {
     methods: {
         toggleActiveClass() {
             this.isActive = !this.isActive;
+        },
+        addCoinData(value) {
+            this.$parent.emit("coin-added", value);
+        },
+        updateInitialInvestment(value) {
+            this.$parent.emit("init-invest", value);
         }
     },
     computed: {

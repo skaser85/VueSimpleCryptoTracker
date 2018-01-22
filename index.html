@@ -13,7 +13,10 @@
 
 <body>
     <div id="bulma-vue">
-        <nav-bar :coins="coins"></nav-bar>
+        <nav-bar @coin-added="addCoinData" 
+                 @init-invest="updateInitialInvestment" 
+                 :coins="coins"
+                 :init-invest="initialInvestment"></nav-bar>
         <coin-stats :initial-investment="initialInvestment"
                     :total-worth="totalWorth"
                     :total-Pl="totalPl"
@@ -46,7 +49,8 @@
             </div>
             <data-update v-show="displayUpdateModal" 
                          @close="displayUpdateModal=false"
-                         :coins="coins"></data-update>
+                         :coins="coins"
+                         :init-invest="initInvest"></data-update>
         </nav>
 
         <!-- The logo can be made clickable by adding an anchor tag
@@ -67,7 +71,7 @@
                         <div class="field">
                             <label class="label title is-4">Initial Investment</label>
                             <div class="control has-icons-left">
-                                <input class="input" type="text" placeholder="750.00">
+                                <input class="input" type="text" placeholder="750.00" v-model="ii">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-dollar"></i>
                                 </span>
