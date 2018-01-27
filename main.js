@@ -3,6 +3,7 @@ import DataUpdate from "./data_update.js";
 import CoinStats from "./coin_stats.js";
 import CoinCards from "./coin_cards.js";
 import CoinCard from "./coin_card.js";
+import HistoryModal from "./history.js";
 
 new Vue({
     el: "#bulma-vue",
@@ -11,12 +12,14 @@ new Vue({
         DataUpdate,
         CoinCard,
         CoinCards,
-        CoinStats
+        CoinStats,
+        HistoryModal
     },
     data() {
         return {
             coins: [],
-            initialInvestment: parseFloat(750).toFixed(2)
+            initialInvestment: parseFloat(750).toFixed(2),
+            displayHistoryModal: false
         }
     },
     methods: {
@@ -29,7 +32,7 @@ new Vue({
         },
         updateInitialInvestment(value) {
             this.initialInvestment = parseFloat(value).toFixed(2);
-        }     
+        }
     },
     computed: {
         totalWorth() {
