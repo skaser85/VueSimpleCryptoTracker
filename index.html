@@ -14,7 +14,7 @@
 <body>
     <div id="bulma-vue">
         <nav-bar @coin-added="addCoinData" @init-invest="updateInitialInvestment" :coins="coins" :init-invest="initialInvestment"></nav-bar>
-        <coin-stats :initial-investment="initialInvestment" :total-worth="totalWorth" :total-Pl="totalPl" :percent-Pl="percentPl"></coin-stats>
+        <coin-stats :owned-coins="ownedCoins" :initial-investment="initialInvestment" :total-worth="totalWorth" :total-Pl="totalPl" :percent-Pl="percentPl"></coin-stats>
         <coin-cards :coins="coins" @toggle="displayHistoryModal=false"></coin-cards>
     </div>
 
@@ -24,6 +24,16 @@
             <div @click="$emit('close')" class="modal-background"></div>
             <div class="modal-content chart-container">
                 <canvas class="box" :id="symbol"></canvas>
+            </div>
+            <button @click="$emit('close')" class="modal-close is-large" aria-label="close"></button>
+        </div>
+    </template>
+
+    <template id="stats-history">
+        <div class="modal is-active history-container">
+            <div @click="$emit('close')" class="modal-background"></div>
+            <div class="modal-content chart-container">
+                <canvas class="box" id="stats-history-chart"></canvas>
             </div>
             <button @click="$emit('close')" class="modal-close is-large" aria-label="close"></button>
         </div>
@@ -164,6 +174,15 @@
                     <p class="title">{{ percentPl }}%</p>
                 </div>
             </div>
+            
+            <span class="icon is-large is-left coin-stats--chart-icon" 
+                  @click="displayStatsHistory=true">
+                <i class="fa fa-line-chart fa-2x"></i>
+            </span>
+            
+            <stats-history v-show="displayStatsHistory"
+                            @close="displayStatsHistory=false"
+                            :owned-coins="ownedCoins"></stats-history>
         </div>
     </template>
 
@@ -194,8 +213,8 @@
                         <img :src="logoSrc" alt="Image">
                     </figure>
                 </div>
-                <div class="content">
-                    <p class="title is-3">{{ name }} ({{ symbol }})</p>
+                <div class="content coin-card--head-text">
+                    <p class="title is-3 coin-card--name-symbol"><span>{{ name }}</span> <span>({{ symbol }})</span></p>
                     <p class="subtitle is-6">Rank: {{ rank }}</p>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import CoinStats from "./coin_stats.js";
 import CoinCards from "./coin_cards.js";
 import CoinCard from "./coin_card.js";
 import HistoryModal from "./history.js";
+import StatsHistory from "./stats_history.js";
 
 new Vue({
     el: "#bulma-vue",
@@ -13,7 +14,8 @@ new Vue({
         CoinCard,
         CoinCards,
         CoinStats,
-        HistoryModal
+        HistoryModal,
+        StatsHistory
     },
     data() {
         return {
@@ -47,10 +49,15 @@ new Vue({
         },
         percentPl() {
             return parseFloat(((this.totalWorth / this.initialInvestment) * 100) - 100).toFixed(2);
+        },
+        ownedCoins() {
+            return this.coins.filter(c => {
+                return c.amt_owned > 0;
+            });
         }
     },
-    mounted() {
-        axios.get("https://api.coinmarketcap.com/v1/ticker/")
+    async mounted() {
+        await axios.get("https://api.coinmarketcap.com/v1/ticker/")
             .then((response) => {
                 this.coins = response.data;
                 this.coins.forEach(c => {
